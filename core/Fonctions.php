@@ -107,7 +107,7 @@ public function test_extension($fichier,$extension_permis){
 
                 $message =  '<html><body>';
                 $message .= '<h1>Confirmation inscription</h1>';
-                $message .='Bonjour '.$postNom.'   '.$postPrenom.' ,veillez confirmer votre inscription en cliquant sur ce : <a href="http://localhost/ProjetTechnol3/public/index.php?hashmail='.$hashmail.'">link</a>';
+                $message .='Bonjour '.$postNom.'   '.$postPrenom.' ,veillez confirmer votre inscription en cliquant sur ce : <a href="'.$_SERVER['SERVER_NAME'].'/ProjetTechnol3/public/index.php?hashmail='.$hashmail.'">link</a>';
                 $message .= '</body></html>';
 
 
@@ -134,7 +134,7 @@ public function test_extension($fichier,$extension_permis){
             $headers = "Content-Type: text/html";
             $message =  '<html><body>';
             $message .= '<h1>Mot de passe oublié</h1>';
-            $message .='Bonjour , vous pouvez modifier votre mot de pase en  cliquant sur ce  :<a href="http://localhost/ProjetTechnol3/public/index.php?forgotmdp='.$hashmail.'">link</a>';
+            $message .='Bonjour , vous pouvez modifier votre mot de pase en  cliquant sur ce  :<a href="'.$_SERVER['SERVER_NAME'].'/ProjetTechnol3/public/index.php?forgotmdp='.$hashmail.'">link</a>';
             $message .= '</body></html>';
 
             if(mail($to, $subject, $message,$headers))
