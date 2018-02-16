@@ -1,4 +1,4 @@
-`# ProjetTechnol3
+# ProjetTechnol3
 ---
 1- Recuperer la base de données(_projetTech.sql_) dans le dossie Config pour le mettre dans votre serveur de base de données Mysql
 ---
