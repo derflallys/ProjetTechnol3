@@ -37,7 +37,9 @@ class SigninController extends AppController
                 $form->resetForm('login');
                 $form->resetForm('password');
                 unset($_POST);
-                return  $this->render('usershome',compact('errors'));
+                $user = $this->Users->find($_SESSION['auth']);
+
+                return  $this->render('usershome',compact('errors','user'));
             }
             else
             {

@@ -45,8 +45,5 @@ class Controller
         }
     }
 
-    protected function cleanForm()
-    {
-        
-    }
+
 }

@@ -15,13 +15,8 @@ if(!$errors)
 {
 
     echo "<div class=\"alert alert-success\" role=\"alert\">
-           Bienvenue dans votre session </div>";
+           Bienvenue dans votre session ".$user->nom."</div>";
 }
-else
-{
-    echo "<div class=\"alert alert-danger\" role=\"alert\">
-  Logging ou mot de passe incorrect !
-    </div>";
-}
+
 ?>
 </div>

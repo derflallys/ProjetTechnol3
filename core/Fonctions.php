@@ -103,9 +103,14 @@ public function test_extension($fichier,$extension_permis){
 
                 $to = $postLogin;
                 $subject = ' Confirmation de mail projettechno';
-                $message ='Bonjour '.$postNom.'   '.$postPrenom.' ,veillez confirmer votre inscription en cliquant sur ce link : http://localhost/ProjetTechnol3/public/index.php?hashmail='.$hashmail;
+                $headers = "Content-Type: text/html";
 
-                $headers = 'From: a.aboubacar.sylla@gmail.com';
+                $message =  '<html><body>';
+                $message .= '<h1>Confirmation inscription</h1>';
+                $message .='Bonjour '.$postNom.'   '.$postPrenom.' ,veillez confirmer votre inscription en cliquant sur ce : <a href="http://localhost/ProjetTechnol3/public/index.php?hashmail='.$hashmail.'">link</a>';
+                $message .= '</body></html>';
+
+
                 if(mail($to, $subject, $message, $headers))
                 {
                     return true;
@@ -126,10 +131,13 @@ public function test_extension($fichier,$extension_permis){
 
             $to = $postLogin;
             $subject = ' Mot de passe oublié ';
-            $message ='Bonjour , vous pouvez modifier votre mot de pase en  cliquant sur ce link : http://localhost/ProjetTechnol3/public/index.php?forgotmdp='.$hashmail;
+            $headers = "Content-Type: text/html";
+            $message =  '<html><body>';
+            $message .= '<h1>Mot de passe oublié</h1>';
+            $message .='Bonjour , vous pouvez modifier votre mot de pase en  cliquant sur ce  :<a href="http://localhost/ProjetTechnol3/public/index.php?forgotmdp='.$hashmail.'">link</a>';
+            $message .= '</body></html>';
 
-
-            if(mail($to, $subject, $message))
+            if(mail($to, $subject, $message,$headers))
             {
                 return true;
             }

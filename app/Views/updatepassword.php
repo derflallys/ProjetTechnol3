@@ -23,10 +23,10 @@ if(isset($updatemdp))
     <div class="col-md-8 offset-md-2">
         <div class="card ">
             <div class="card-header">
-                Se connecter
+                Mot de passe Oublié
             </div>
             <div class="card-body">
-                <h5 class="card-title">Veillez saisir votre email et votre mot de passe </h5>
+                <h5 class="card-title">Mettez à jour votre mot de passe </h5>
                 <form method="post" id="signin">
                     <div class="container">
                         <div class="row">

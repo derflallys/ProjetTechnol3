@@ -53,5 +53,10 @@ class UsersTable extends Table
         return $this->query("SELECT * from $this->table where login = ? ",[$mail],true);
 
     }
+    public function find($id)
+    {
+        return $this->query("SELECT * from $this->table where id_user = ? ",[$id],true);
+
+    }
 
 }
