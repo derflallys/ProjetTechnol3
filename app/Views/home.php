@@ -19,7 +19,36 @@ if(isset($forgot))
     if($forgot)
     {
         echo "<div class=\"alert alert-info\" role=\"alert\">
-                              Veillez verifier votre email pour  pour changer votre mot de passe !
+                              Veillez verifier votre email pour changer votre mot de passe !
+                             </div>";
+    }
+}
+
+if(isset($verified)) {
+    if($verified)
+    {
+        ?>
+        <div class="alert alert-info" role="alert">
+            Vous avez deja confirmé votre inscription .
+        </div>
+        <?
+    }
+    else{
+        ?>
+        <div class="alert alert-info" role="alert">
+            Inscription Confirmé !
+        </div>
+        <?php
+    }
+
+}
+
+if(isset($updatemdp))
+{
+    if($updatemdp)
+    {
+        echo "<div class=\"alert alert-info\" role=\"alert\">
+                                Mot de passe mise à jour !
                              </div>";
     }
 }

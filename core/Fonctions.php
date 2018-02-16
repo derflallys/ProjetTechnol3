@@ -96,14 +96,14 @@ public function test_extension($fichier,$extension_permis){
     }
 }
 
-    public function sendmailconfim($post,$hashmail)
+    public function sendmailconfim($postNom=null,$postPrenom=null,$postLogin,$hashmail)
     {
-        if (isset($post['nom']) && isset($post['prenom']) && isset($post['login']) )
+        if (isset($postNom) && isset($postPrenom) && isset($postLogin) )
         {
 
-                $to = $post['login'];
+                $to = $postLogin;
                 $subject = ' Confirmation de mail projettechno';
-                $message ='Bonjour '.$post['nom'].'   '.$post['prenom'].'Veillez confirmer votre inscription en cliquant sur ce link :'.$hashmail;
+                $message ='Bonjour '.$postNom.'   '.$postPrenom.' ,veillez confirmer votre inscription en cliquant sur ce link : http://localhost/ProjetTechnol3/public/index.php?hashmail='.$hashmail;
 
                 $headers = 'From: a.aboubacar.sylla@gmail.com';
                 if(mail($to, $subject, $message, $headers))
@@ -115,6 +115,29 @@ public function test_extension($fichier,$extension_permis){
                     return false;
                 }
             }
+
+    }
+
+
+    public function sendmailpassword($postLogin,$hashmail)
+    {
+        if (  isset($postLogin) )
+        {
+
+            $to = $postLogin;
+            $subject = ' Mot de passe oublié ';
+            $message ='Bonjour , vous pouvez modifier votre mot de pase en  cliquant sur ce link : http://localhost/ProjetTechnol3/public/index.php?forgotmdp='.$hashmail;
+
+
+            if(mail($to, $subject, $message))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 

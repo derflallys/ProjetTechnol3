@@ -59,7 +59,7 @@ class UsersController extends AppController
                     return $this->render('signup', compact('form','result'));
                 }
                 $fonction = new Fonctions();
-                //$mail = $fonction->sendmailconfim($_POST, $hashmail);
+                $mail = $fonction->sendmailconfim($_SESSION['post']['nom'],$_SESSION['post']['prenom'],$_SESSION['post']['login'], $hashmail);
                 $form->resetForm('nom');
                 $form->resetForm('prenom');
                 $form->resetForm('codepostale');
@@ -137,11 +137,11 @@ class UsersController extends AppController
                 'verified' =>1,
                 'hashmail' =>$user->hashmail
             ]);
-
-
         }
-        $users = $this->Users->allVerified();
-        $this->render('users',compact('users','verified'));
+        $this->render('home',compact('form','verified'));
+
+
+
 
     }
 
@@ -153,10 +153,9 @@ class UsersController extends AppController
             if(!empty($u))
             {
                 $fonction = new Fonctions();
+                $fonction->sendmailpassword($_POST['login'], $u->hashmail);
                 $forgot=true;
                return $this->render('home',compact('form','forgot'));
-
-                //$mail = $fonction->sendmailconfim($_POST, $hashmail);
 
             }
             else
@@ -167,5 +166,56 @@ class UsersController extends AppController
         }
 
         $this->render('formforgot',compact('form'));
+    }
+
+    public function updatepassword($hashmail)
+    {
+        $u = $this->Users->findByHashmail($hashmail);
+
+        if (!empty($u) )
+        {
+            $form = new BootstrapForm();
+            if(!empty($_POST)) {
+
+                $this->postTosession($_POST);
+                header("HTTP/1.1 303 See Other");
+                header("Location: " . $_SERVER['REQUEST_URI']);
+                die();
+            }else {
+
+                if (isset($_SESSION['post'])) {
+
+                    if (strcmp($_SESSION['post']['password'], $_SESSION['post']['confirmpassword']) == 0) {
+                        $result = $this->Users->update($u->id_user, [
+                            'nom' => $u->nom,
+                            'prenom' => $u->prenom,
+                            'login ' => $u->login,
+                            'codepostale' => $u->codepostale,
+                            'password' => sha1($_SESSION['post']['password']),
+                            'verified' => $u->verified,
+                            'hashmail' => $u->hashmail
+                        ]);
+
+                        $form->resetForm('password');
+                        $form->resetForm('confirmpassword');
+                        $updatemdp =true;
+                        unset($_SESSION['post']);
+                        $_POST = array();
+                       return $this->render('home',compact('form','updatemdp'));
+
+                    }
+                    else
+                    {
+                        $form->resetForm('password');
+                        $form->resetForm('confirmpassword');
+                        $updatemdp=false;
+                        unset($_SESSION['post']);
+                        $_POST = array();
+                      return  $this->render('updatepassword',compact('form','updatemdp'));
+                    }
+                }
+            }
+            $this->render('updatepassword',compact('form'));
+        }
     }
 }

@@ -9,51 +9,56 @@
 require dirname(__DIR__).'/public/init_index.php';
 require ROOT.'/app/App.php';
 App::load();
-    $task='home';
+
     if(isset($_GET['task']))
     {
         $task=$_GET['task'];
     }
+    else {
+        if (isset($_GET['hashmail'])) {
+            $controllerU = new \app\Controller\UsersController();
+            $controllerU->confirmeMail($_GET['hashmail']);
+            unset($_GET['hashmail']);
+        } else {
+            if (isset($_GET['forgotmdp'])) {
+                $controllerU = new \app\Controller\UsersController();
+                $controllerU->updatepassword($_GET['forgotmdp']);
+                unset($_GET['forgotmdp']);
+            }
+            else{
+                $task = 'home';
+            }
 
-    if(isset($_GET['hashmail']))
-    {
-        $controllerU = new \app\Controller\UsersController();
-        $controllerU->confirmeMail($_GET['hashmail']);
+        }
     }
 
 
 
-    if($task === 'home')
-    {
+if(isset($task)) {
+
+    if ($task === 'home') {
         $controllerin = new \app\Controller\HomeController();
         $controllerin->index();
 
-    }
-    elseif ($task === 'users')
-    {
+    } elseif ($task === 'users') {
         $controller = new \app\Controller\UsersController();
         $controller->liste();
-    }
-    elseif ($task === 'signin')
-    {
+    } elseif ($task === 'signin') {
         $controller = new \app\Controller\SigninController();
         $controller->login();
-    }elseif ($task === 'signup')
-    {
+    } elseif ($task === 'signup') {
         $controller = new \app\Controller\UsersController();
         $controller->add();
-    }elseif ($task === 'delete')
-    {
+    } elseif ($task === 'delete') {
         $controller = new \app\Controller\UsersController();
         $controller->delete();
-    }elseif ($task === 'disconnect')
-    {
+    } elseif ($task === 'disconnect') {
         $controller = new \app\Controller\SigninController();
         $controller->disconnect();
-    }elseif ($task === 'forget' )
-    {
+    } elseif ($task === 'forget') {
         $controller = new \app\Controller\UsersController();
         $controller->passwordForget();
     }
+}
 
 
