@@ -58,6 +58,9 @@ if(isset($task)) {
     } elseif ($task === 'forget') {
         $controller = new \app\Controller\UsersController();
         $controller->passwordForget();
+    } elseif ($task === 'resendmail') {
+        $controller = new \app\Controller\UsersController();
+        $controller->resendmailconfirmation();
     }
 }
 

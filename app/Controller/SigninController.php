@@ -43,6 +43,7 @@ class SigninController extends AppController
             }
             else
             {
+                $_SESSION['confirmail'] = $_POST['login'];
                 $form->resetForm('login');
                 $form->resetForm('password');
                 unset($_POST);

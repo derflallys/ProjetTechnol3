@@ -8,6 +8,7 @@ if (isset($errors))
                      </div>";
         echo "<div class=\"alert alert-warning\" role=\"alert\">
                        Si vous avez pas encore validé votre email ,vous ne pouvez pas vous connectez !
+                        click <a href='index.php?task=resendmail'>ici</a>  pour vous renvoyer le mail de confirmation 
                      </div>";
     }
     unset($errors);

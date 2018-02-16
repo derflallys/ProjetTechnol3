@@ -218,4 +218,20 @@ class UsersController extends AppController
             $this->render('updatepassword',compact('form'));
         }
     }
+
+    public function resendmailconfirmation()
+    {
+            if (isset($_SESSION['confirmail']))
+            {
+                $u = $this->Users->findBymail($_SESSION['confirmail']);
+                if(!empty($u))
+                {
+                    $fonction = new Fonctions();
+                    $fonction->sendmailconfim($u->nom,$u->prenom,$u->login, $u->hashmail);
+                    unset($_SESSION['confirmail']);
+                    $signup =true;
+                    $this->render('home',compact('signup'));
+                }
+            }
+    }
 }
