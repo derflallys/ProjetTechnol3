@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  ven. 02 fév. 2018 à 14:38
+-- Généré le :  ven. 16 fév. 2018 à 01:45
 -- Version du serveur :  10.1.22-MariaDB
 -- Version de PHP :  7.1.4
 
@@ -25,86 +25,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `occupancy`
---
-
-CREATE TABLE `occupancy` (
-  `id_user` int(11) NOT NULL,
-  `id_officies` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `occupancy`
---
-
-INSERT INTO `occupancy` (`id_user`, `id_officies`) VALUES
-(1, 1),
-(15, 3);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `officies`
---
-
-CREATE TABLE `officies` (
-  `id_officies` int(11) NOT NULL,
-  `tel_officies` varchar(10) DEFAULT NULL,
-  `nbr_postes` int(11) DEFAULT NULL,
-  `number_office` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `officies`
---
-
-INSERT INTO `officies` (`id_officies`, `tel_officies`, `nbr_postes`, `number_office`) VALUES
-(1, '5633213243', 3, 24),
-(3, 'dsqf', 2, 3);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `users`
 --
 
 CREATE TABLE `users` (
   `nom` varchar(50) NOT NULL,
   `prenom` varchar(70) NOT NULL,
-  `login` varchar(10) NOT NULL,
+  `login` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `datenaiss` date NOT NULL,
-  `tel_perso` varchar(10) NOT NULL
+  `codepostale` varchar(10) NOT NULL,
+  `verified` int(11) DEFAULT '0',
+  `hashmail` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`nom`, `prenom`, `login`, `password`, `id_user`, `datenaiss`, code) VALUES
-('sylla', 'alfred', 'derfla', '4a700ec84b5396a79b26539c2433c6a0fb998dab', 1, '0000-00-00', ''),
-('sfg', 'sqdf', 'sqdf', '66951aa3e36a43d777724bdfa2cc6e2af20360c3', 15, '0000-00-00', ''),
-('wfsg', 'fwg', 'der', 'b73e18baed5334c2b5b64a4157ab64ee7b79b01d', 16, '0000-00-00', ''),
-('jkglk', 'sdfqjhsqdf', 'hjgkj', 'fddd8327db8fbe1fba0bbb876243690c3d5622b6', 17, '0000-00-00', '');
+INSERT INTO `users` (`nom`, `prenom`, `login`, `password`, `id_user`, `codepostale`, `verified`, `hashmail`) VALUES
+('Aboubacar', 'Aboubac', 'dev@gmail.com', 'b73e18baed5334c2b5b64a4157ab64ee7b79b01d', 34, '33600', 1, '157c59bacb2592bae613adf2b3ed078e7a7fa8a0'),
+('dsfgsr, n', 'sfd, dsfv', 'derfladev@gmail.com', '9cf95dacd226dcf43da376cdb6cbba7035218921', 35, '33300', 1, 'a19ed09cb141d3083d2cb48206db253476368e9a'),
+('DIOP', 'Aissatou', 'test@test.sn', 'e3be69be474833e8fd39b34df9db9fa8e1150ada', 37, '17400', 1, 'ccc93d923f1335b907382b782ab7c11938721d96'),
+('sqdf', 'tyuru', 'qsdf@dfg.fdg', '9c2a1bdc08bcff8b84b79af93aa77d633be036f0', 69, 'sqdf', 1, 'df0c8a3d4f65185101560daab68988c660a0e93b'),
+('gffdg', 'sfgsdgf', 'dsfsf@gmail.com', 'b73e18baed5334c2b5b64a4157ab64ee7b79b01d', 74, 'sdfsdfs', 0, '30a669dcfe9d0ef46dc5ffd012b573b63cfd71b3'),
+('SYLLA', 'Alfred', 'a.aboubacar.sylla@gmail.com', '31017a722665e4afce586950f42944a6d331dabf', 75, '17000', 1, '74f42a65cdf521f55f630698ce10b382675eb3b6'),
+('Hamza', 'Seye', 'hamzatou10@hotmail.fr', 'b73e18baed5334c2b5b64a4157ab64ee7b79b01d', 76, '33600', 1, '1be47b8d8d2bf2bab6b2b3e604c63f660d40bca9');
 
 --
 -- Index pour les tables déchargées
 --
-
---
--- Index pour la table `occupancy`
---
-ALTER TABLE `occupancy`
-  ADD PRIMARY KEY (`id_user`,`id_officies`),
-  ADD KEY `occupancy_officies_id_officies_fk` (`id_officies`);
-
---
--- Index pour la table `officies`
---
-ALTER TABLE `officies`
-  ADD PRIMARY KEY (`id_officies`),
-  ADD UNIQUE KEY `officies_number_office_uindex` (`number_office`);
 
 --
 -- Index pour la table `users`
@@ -117,26 +67,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT pour la table `officies`
---
-ALTER TABLE `officies`
-  MODIFY `id_officies` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `occupancy`
---
-ALTER TABLE `occupancy`
-  ADD CONSTRAINT `occupancy_officies_id_officies_fk` FOREIGN KEY (`id_officies`) REFERENCES `officies` (`id_officies`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `occupancy_users_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
