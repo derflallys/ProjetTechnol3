@@ -61,6 +61,12 @@ if(isset($task)) {
     } elseif ($task === 'resendmail') {
         $controller = new \app\Controller\UsersController();
         $controller->resendmailconfirmation();
+    } elseif ($task === 'forum') {
+        $controller = new \app\Controller\ForumController();
+        $controller->index();
+    } elseif ($task === 'addforum') {
+        $controller = new \app\Controller\ForumController();
+        $controller->add();
     }
 }
 

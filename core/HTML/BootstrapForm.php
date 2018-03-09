@@ -28,7 +28,7 @@ class BootstrapForm extends Form
         $input = '<input id="'.$name.'" type="'.$type.'" name="'.$name.'" class="form-control" value="'.$this->getValue($name).'" required>';
         $input = $this->surroundInput($input);
         if($type==='textarea'){
-            $input= '<textarea class="form-control" name="'.$name.'">'.$this->getValue($name). '</textarea>';
+            $input= '<textarea for="'.$name.'" class="form-control" name="'.$name.'">'.$this->getValue($name). '</textarea>';
         }
         if($type==='date')
         {
