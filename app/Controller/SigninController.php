@@ -28,6 +28,7 @@ class SigninController extends AppController
     {
         if($this->checkConnection())
         {
+            $errors = false;
             $user = $this->Users->find($_SESSION['auth']);
             return  $this->render('usershome',compact('errors','user'));
         }

@@ -101,25 +101,42 @@ class UsersController extends AppController
 
     public function edit()
     {
-        if(!empty($_POST))
-        {
-            $result=  $this->Users->update($_GET['id'],[
-                'nom'=>$_POST['nom'],
-                'prenom'=>$_POST['prenom'],
-                'login '=>$_POST['login'],
-                'password' =>sha1($_POST['password'])
-            ]);
-            if($result)
-            {
-                return $this->liste();
+        $user = $this->Users->find($_SESSION['auth']);
+        $form = new BootstrapForm($user);
+        if(!empty($_POST)) {
+
+            $this->postTosession($_POST);
+            header("HTTP/1.1 303 See Other");
+            header("Location: " . $_SERVER['REQUEST_URI']);
+            die();
+        }else {
+
+            if (isset($_SESSION['post'])) {
+                $result = $this->Users->update($_GET['id'], [
+                    'nom' => $_POST['nom'],
+                    'prenom' => $_POST['prenom'],
+                    'login ' => $_POST['login'],
+                    'codepostale ' => $_POST['codepostale'],
+                    'password' => sha1($_POST['password'] == null ? $user->password : $_POST['password']),
+                    'verified' => 1,
+                    'hashmail' => $user->hashmail
+                ]);
+                $edit = false;
+                if ($result) {
+                    $form->resetForm('nom');
+                    $form->resetForm('prenom');
+                    $form->resetForm('codepostale');
+                    $form->resetForm('login');
+                    $form->resetForm('password');
+                    $_POST = array();
+                    $edit = true;
+                }
+                return $this->render('usershome', compact('edit'));
+
             }
-
         }
-        $users = $this->Users->find($_GET['id']);
 
-
-        $form = new BootstrapForm($users);
-        $this->render('admin.editAdmin',compact('users','form'));
+        $this->render('signup',compact('user','form'));
     }
 
     public function confirmeMail($hashmail)
@@ -235,8 +252,5 @@ class UsersController extends AppController
             }
     }
 
-    public function account()
-    {
-        $form = new BootstrapForm();
-    }
+
 }

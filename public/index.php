@@ -68,6 +68,11 @@ if(isset($task)) {
         $controller = new \app\Controller\ForumController();
         $controller->add();
     }
+    elseif ($task === 'updtateaccount') {
+        $controller = new \app\Controller\UsersController();
+        $controller->edit();
+    }
+
 }
 
 
