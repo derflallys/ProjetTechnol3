@@ -26,7 +26,7 @@
                 <a class="nav-link" href="?task=disconnect">Disconnect</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?task=account">Mon Compte</a>
+                <a class="nav-link" href="?task=username">Mon Compte</a>
             </li>
 
             <?php

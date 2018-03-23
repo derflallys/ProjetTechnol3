@@ -26,6 +26,12 @@ class SigninController extends AppController
 
     public function login()
     {
+        if($this->checkConnection())
+        {
+            $user = $this->Users->find($_SESSION['auth']);
+            return  $this->render('usershome',compact('errors','user'));
+        }
+
         $form = new BootstrapForm($_POST);
         if(!empty($_POST))
         {
