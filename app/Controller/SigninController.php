@@ -68,9 +68,9 @@ class SigninController extends AppController
     public function checkConnection(){
         $auth = new DBAuth(App::getInstance()->getDb());
         if($auth->logged()){
-            echo true;
+            return true;
         }else{
-            echo false;
+            return false;
         }
     }
     public function disconnect()
