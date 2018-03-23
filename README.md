@@ -10,3 +10,6 @@
 ---
 3- Vous pouvez maitenant si vous etes en localhost aller sur `localhost/ProjetTechnol3`
 ---
+
+
+Bloquer @ et Tel  use regex 

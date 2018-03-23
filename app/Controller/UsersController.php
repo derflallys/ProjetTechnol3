@@ -234,4 +234,9 @@ class UsersController extends AppController
                 }
             }
     }
+
+    public function account()
+    {
+        $form = new BootstrapForm();
+    }
 }
