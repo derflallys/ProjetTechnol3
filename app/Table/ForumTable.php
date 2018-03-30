@@ -14,4 +14,10 @@ use core\Table\Table;
 class ForumTable extends Table
 {
     protected $table = 'forum';
+
+    public function find($id)
+    {
+        return $this->query("SELECT * from $this->table where id_forum = ? ",[$id],true);
+
+    }
 }

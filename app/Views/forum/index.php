@@ -31,28 +31,23 @@ if(isset($addforum) ) {
  * Date: 09/03/18
  * Time: 00:01
  */
-for ($i=0;$i<10;$i++) {
+foreach ($forums as $forum) {
     ?>
 <div class="row">
     <div class="card bg-primary ">
         <div class="card text-center">
             <div class="card-header">
-                Auteur
+                <?=$forum->titre?>
             </div>
             <div class="card-body ">
-                <h5 class="card-title">Titre Forum</h5>
+                <h5 class="card-title"><?=$forum->titre?></h5>
                 <p class="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ex expedita laboriosam, magni natus nesciunt non odio provident quas qui quia, quod saepe ut. Architecto ipsa maiores nulla odio quae?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad adipisci aspernatur dicta error esse exercitationem, explicabo harum libero maiores molestiae nesciunt nostrum nulla odio quis quod temporibus totam unde!
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium at corporis culpa, illo impedit labore, magnam minima nam neque possimus provident quae quasi quia quod ratione repudiandae soluta tenetur veniam.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa doloremque eligendi minima natus nesciunt optio velit! Alias consequatur, est et hic, illo ipsum labore maxime minus mollitia nisi, provident unde.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci animi commodi corporis cum dicta explicabo magnam minima modi natus nesciunt non odio porro, praesentium recusandae, repellat rerum sequi vel?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam asperiores aspernatur at, culpa cumque debitis dicta iure iusto modi necessitatibus recusandae, repellat tempora unde velit? Aliquam aperiam consectetur perferendis?
+                    <?=$forum->contenu?>
                 </p>
-                <a href="#" class="btn btn-primary">Consulter</a>
+                <a href="<?=$forum->getUrl()?>" class="btn btn-primary">Consulter</a>
             </div>
             <div class="card-footer text-muted">
-                27-03-2017
+                <?=$forum->date_creation?>
             </div>
         </div>
     </div>

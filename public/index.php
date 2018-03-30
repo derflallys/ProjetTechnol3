@@ -72,6 +72,11 @@ if(isset($task)) {
         $controller = new \app\Controller\UsersController();
         $controller->edit();
     }
+    elseif ($task === 'forum.show') {
+        $controller = new \app\Controller\ForumController();
+        $controller->show();
+    }
+
 
 }
 

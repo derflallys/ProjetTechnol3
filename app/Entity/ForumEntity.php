@@ -13,5 +13,11 @@ use core\Entity\Entity;
 
 class ForumEntity extends Entity
 {
+    public function getUrl(){
+        return RACINE."public/index.php?task=forum.show&id=".$this->id_forum;
+    }
 
+    public function getAnswerUrl(){
+        return RACINE.'public/index.php/?task=forum.answer&id='.$this->id_forum;
+    }
 }

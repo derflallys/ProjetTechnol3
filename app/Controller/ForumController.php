@@ -18,12 +18,13 @@ class ForumController extends AppController
         parent::__construct();
         $this->loadModel('Forum');
         $this->loadModel('Users');
+        $this->loadModel('Commentaire_forum');
     }
 
     public function index()
     {
-
-        $this->render('forum.index');
+        $forums = $this->Forum->all();
+        $this->render('forum.index',compact('forums'));
     }
 
     public function add()
@@ -67,5 +68,15 @@ class ForumController extends AppController
         }
 
         $this->render('forum.editforum',compact('form'));
+    }
+
+    public function show()
+    {
+        $forum = $this->Forum->find($_GET['id']);
+        $comments = $this->Commentaire_forum->findByForum($_GET['id']);
+        $user = $this->Users->find($forum->id_user);
+        $ObjetUser = $this->Users;
+
+        $this->render('forum.show',compact('forum','comments','user','ObjetUser'));
     }
 }
