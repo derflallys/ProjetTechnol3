@@ -17,7 +17,15 @@ class Commentaire_forumTable extends Table
 
     public function findByForum($idforum)
     {
-        return $this->query("SELECT * from $this->table where id_forum = ? ",[$idforum],false);
+        return $this->query("SELECT * from $this->table where id_forum = ? ORDER BY date_com DESC ",[$idforum],false);
 
     }
+
+    public function findAnswer($idcomment)
+    {
+        return $this->query("SELECT * from $this->table where id_parent = ? ORDER BY date_com DESC ",[$idcomment],false);
+
+    }
+
+
 }

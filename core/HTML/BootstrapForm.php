@@ -24,6 +24,7 @@ class BootstrapForm extends Form
         $type = isset($option['type']) ? $option['type'] : 'text';
         $accept = isset($option['accept']) ? $option['accept'] : 'image/*';
 
+
         $labell = '<label for="'.$name.'" class="col-sm-2 col-form-label">'.$label.'</label>';
         $input = '<input id="'.$name.'" type="'.$type.'" name="'.$name.'" class="form-control" value="'.$this->getValue($name).'" required>';
         $input = $this->surroundInput($input);

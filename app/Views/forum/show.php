@@ -5,7 +5,21 @@
  * Date: 30/03/18
  * Time: 01:42
  */
-
+if(isset($commentforum))
+{
+    if($commentforum)
+    {
+        echo '<div class="alert alert-success" role="alert">
+        Commentaire Bien ajouté
+</div>';
+    }
+    else
+    {
+        echo '<div class="alert alert-success" role="alert">
+        Erreur lors de l\'ajout du commentaire
+</div>';
+    }
+}
 
 
 ?>
@@ -21,43 +35,120 @@
                     <p class="card-text">
                         <?=$forum->contenu?>
                     </p>
-                    <h3>Reponses</h3>
-                    <?php foreach ($comments as $comment): if(is_null($comment->id_parent)) :?>
+                    <button type="button" class="btn btn-primary"   id="addcommentaire">
+                        Ajouter un Commentaire
+                    </button>
                     <div class="row">
-                        <div class="card bg-primary ">
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <?=$ObjetUser->find($comment->id_user)->nom  . $ObjetUser->find($comment->id_user)->prenom?>
-                                </div>
-                                <div class="card-body ">
-                                    <h5 class="card-title"><?=$comment->date_com?></h5>
-                                    <p class="card-text">
-                                        <?=$comment->contenu?>
-                                    </p>
-                                    <?php array_splice($comments, 0,1); foreach ($comments as $answer):if(is_null($answer->id_parent)) break;?>
-                                    <div class="row">
-                                        <div class="card bg-primary ">
-                                            <div class="card text-center">
-                                                <div class="card-header">
-                                                    <?=$ObjetUser->find($answer->id_user)->nom  . $ObjetUser->find($answer->id_user)->prenom?>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <div class="card text-white bg-success mb-3" id="commentaire" >
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Votre Commentaire</h5>
+                                    <form method="post" >
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-10">
+                                                    <?php echo $form->input('contenu_com','Commentaire',['type'=>'textarea']); ?>
+                                                    <input type="text" name="id_parent" value="" hidden>
+
+                                                    <?php echo $form->submit(); ?>
                                                 </div>
-                                                <div class="card-body ">
-                                                    <h5 class="card-title"><?=$answer->date_com?></h5>
-                                                    <p class="card-text">
-                                                        <?=$answer->contenu?>
-                                                    </p>
+                                                <div class="col-sm-1">
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                        <?php array_splice($comments, 1,1); endforeach;?>
+                                    </form>
                                 </div>
-
                             </div>
                         </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+
+
+                    <h3>Reponses</h3>
+                    <?php foreach ($comments as $comment): if(is_null($comment->id_parent)) :?>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <div class="card border-success mb-3">
+                                <div class="card-header">
+                                    <?=$comment->date_com?>
+                                </div>
+                                <div class="card-body text-success">
+                                    <h5 class="card-title"></h5>
+                                    <p class="card-text">
+                                        <blockquote class="blockquote">
+                                            <p class="mb-0"><?=$comment->contenu_com?></p>
+                                            <footer class="blockquote-footer"><?=$ObjetUser->find($comment->id_user)->nom  .' '. $ObjetUser->find($comment->id_user)->prenom?><cite title="Source Title"> Auteur</cite></footer>
+                                        </blockquote>
+
+                                    </p>
+                                    <button type="button" class="btn btn-primary btnreponse"   id="<?=$comment->id_commentForum?>">
+                                        Ajouter une reponse
+                                    </button>
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-10">
+                                            <div class="card text-white bg-info mb-3 reponse " id="<?='rep'.$comment->id_commentForum?>"  >
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Votre Commentaire</h5>
+                                                    <form method="post" >
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-10">
+                                                                    <?php echo $form->input('contenu_com','Commentaire',['type'=>'textarea']); ?>
+                                                                    <input type="text" name="id_parent" value="<?=$comment->id_commentForum?>" hidden>
+
+                                                                    <?php echo $form->submit(); ?>
+                                                                </div>
+                                                                <div class="col-sm-1">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <?php foreach ($ObjetComment->findAnswer($comment->id_commentForum) as $answer) {?>
+                                        <div class="row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-8">
+                                                <div class="card border-info mb-3" >
+                                                    <div class="card-header">
+                                                        <?=$answer->date_com?>
+                                                    </div>
+                                                    <div class="card-body text-info">
+                                                        <h5 class="card-title"></h5>
+                                                        <p class="card-text">
+                                                            <blockquote class="blockquote">
+                                                                <p class="mb-0"><?=$answer->contenu_com?></p>
+                                                                <footer class="blockquote-footer"><?=$ObjetUser->find($answer->id_user)->nom  .' '. $ObjetUser->find($answer->id_user)->prenom?><cite title="Source Title"> Auteur</cite></footer>
+                                                            </blockquote>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                        <?php } ?>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-1"></div>
+
                     </div>
                     <?php endif; endforeach?>
+
                 </div>
+
                 <div class="card-footer text-muted">
                     <?=$forum->date_creation?>
                 </div>
@@ -65,3 +156,4 @@
         </div>
     </div>
 </div>
+

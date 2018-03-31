@@ -72,11 +72,65 @@ class ForumController extends AppController
 
     public function show()
     {
+        $form = new BootstrapForm();
         $forum = $this->Forum->find($_GET['id']);
+
+        if(isset($_SESSION['auth'])) {
+            if (!empty($_POST)) {
+
+                $this->postTosession($_POST);
+                header("HTTP/1.1 303 See Other");
+                header("Location: " . $_SERVER['REQUEST_URI']);
+                die();
+            } else {
+                if (isset($_SESSION['post'])) {
+
+                    $commentforum = false;
+                    $user = $this->Users->find($_SESSION['auth']);
+                    if($_SESSION['post']['id_parent']==="")
+                    {
+
+                        $result = $this->Commentaire_forum->create([
+                            'id_user' => $user->id_user,
+                            'contenu_com' => $_SESSION['post']['contenu_com'],
+                            'date_com' => date("Y-m-d H:i:s"),
+                            'id_forum' => $forum->id_forum,
+                        ]);
+                    }
+                    else
+                    {
+                        $result = $this->Commentaire_forum->create([
+                            'id_user' => $user->id_user,
+                            'contenu_com' => $_SESSION['post']['contenu_com'],
+                            'date_com' => date("Y-m-d H:i:s"),
+                            'id_forum' => $forum->id_forum,
+                            'id_parent' => $_SESSION['post']['id_parent']
+                        ]);
+
+                    }
+
+                    $form->resetForm('contenu_com');
+                    $form->resetForm('id_parent');
+                    $_POST = array();
+                    if (!$result) {
+                        $commentforum = true;
+                    }
+                    unset($_SESSION['post']);
+
+                }
+            }
+        }
+        else
+        {
+            $connect = false;
+            return $this->render('forum.index',compact('form','connect'));
+        }
         $comments = $this->Commentaire_forum->findByForum($_GET['id']);
         $user = $this->Users->find($forum->id_user);
         $ObjetUser = $this->Users;
+        $ObjetComment = $this->Commentaire_forum;
 
-        $this->render('forum.show',compact('forum','comments','user','ObjetUser'));
+
+        $this->render('forum.show',compact('forum','comments','user','ObjetUser','commentforum','form','ObjetComment'));
     }
 }
