@@ -83,10 +83,13 @@ class ForumController extends AppController
         $this->render('forum.editforum',compact('form'));
     }
 
-    public function show()
+    public function show($id=null)
     {
         $form = new BootstrapForm();
-        $forum = $this->Forum->find($_GET['id']);
+        if($id)
+            $forum = $this->Forum->find($id);
+        else
+            $forum = $this->Forum->find($_GET['id']);
 
         if(isset($_SESSION['auth'])) {
             if (!empty($_POST)) {
@@ -138,7 +141,10 @@ class ForumController extends AppController
             $connect = false;
             return $this->render('forum.index',compact('form','connect','forum'));
         }
-        $comments = $this->Commentaire_forum->findByForum($_GET['id']);
+        if($id)
+            $comments = $this->Commentaire_forum->findByForum($id);
+        else
+            $comments = $this->Commentaire_forum->findByForum($_GET['id']);
         $user = $this->Users->find($forum->id_user);
         $ObjetUser = $this->Users;
         $ObjetComment = $this->Commentaire_forum;
@@ -177,7 +183,7 @@ class ForumController extends AppController
 
             $_POST = array();
 
-            $this->showAdmin($forum->id_forum);
+           return $this->showAdmin($forum->id_forum);
         }
     }
 
@@ -259,6 +265,58 @@ class ForumController extends AppController
 
     public function alertForum()
     {
+        if(isset($_POST['id_forum'])){
+            if(isset($_SESSION['auth'])) {
+
+                $this->Forum->alerter($_POST['id_forum']);
+            }
+            $id= $_POST['id_forum'];
+            $_POST = array();
+          return  $this->show($id);
+
+        }
 
     }
+
+    public function alertComment()
+    {
+        if(isset($_POST['id_commentForum']))
+        {
+            if(isset($_SESSION['auth'])) {
+                $this->Commentaire_forum->alerter($_POST['id_commentForum']);
+            }
+            $forum = $this->Commentaire_forum->find($_POST['id_commentForum']);
+            $_POST = array();
+          return  $this->show($forum->id_forum);
+
+
+        }
+
+    }
+
+    public function showAlert()
+    {
+        $form = new BootstrapForm();
+
+        if(isset($_SESSION['auth'])) {
+            $user = $this->Users->find($_SESSION['auth']);
+            if (strcmp($user->role, 'admin') != 0) {
+                $this->forbidden();
+            }
+            $forums = $this->Forum->selectAbus();
+            $comments = $this->Commentaire_forum->selectAbus();
+            $ObjetUser = $this->Users;
+            $ObjetComment = $this->Commentaire_forum;
+            $this->render('forum.admin.alerts',compact('forums','comments','user','ObjetUser','form','ObjetComment'));
+
+        }
+        else
+        {
+            $this->forbidden();
+        }
+    }
+
+
+
+
 }

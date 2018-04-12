@@ -90,6 +90,19 @@ if(isset($task)) {
                 $controller = new \app\Controller\ForumController();
                 $controller->deleteComment();
             }
+    elseif ($task === 'admin.alertComment') {
+                    $controller = new \app\Controller\ForumController();
+                    $controller->alertComment();
+    }
+    elseif ($task === 'admin.alertForum') {
+                    $controller = new \app\Controller\ForumController();
+                    $controller->alertForum();
+    }
+    elseif ($task === 'admin.alerts') {
+                        $controller = new \app\Controller\ForumController();
+                        $controller->showAlert();
+        }
+
 
 
 }

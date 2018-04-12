@@ -23,6 +23,7 @@ if(isset($commentforum))
 
 
 ?>
+<h1>Details Forum <?=$forum->titre?></h1>
 <div class="container">
     <div class="row">
         <div class="card bg-primary ">

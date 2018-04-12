@@ -38,5 +38,15 @@ class Commentaire_forumTable extends Table
         return $this->query("DELETE FROM {$this->table} WHERE id_commentForum= ?",[$id],true);
     }
 
+    public function alerter($idcomment)
+    {
+        return $this->query("UPDATE {$this->table} SET alert = alert + 1 WHERE id_commentForum = ? ",[$idcomment],true);
+    }
+
+    public function selectAbus()
+    {
+        return $this->query("Select * FROM {$this->table} WHERE alert>0");
+    }
+
 
 }

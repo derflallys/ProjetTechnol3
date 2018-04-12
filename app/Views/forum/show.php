@@ -29,6 +29,12 @@ if(isset($commentforum))
             <div class="card text-center">
                 <div class="card-header">
                     <?=$forum->date_creation?>
+                    <form action="?task=admin.alertForum" method="post">
+                        <input type="hidden" name="id_forum" value="<?=$forum->id_forum?>">
+                        <button type="submit" class="btn btn-danger" >
+                            Signaler
+                        </button>
+                    </form>
                 </div>
                 <div class="card-body ">
                     <h5 class="card-title"><?=$forum->titre?></h5>
@@ -80,6 +86,12 @@ if(isset($commentforum))
                             <div class="card border-success mb-3">
                                 <div class="card-header">
                                     <?=$comment->date_com?>
+                                    <form action="?task=admin.alertComment" method="post">
+                                        <input type="hidden" name="id_commentForum" value="<?=$comment->id_commentForum?>">
+                                        <button type="submit" class="btn btn-danger" >
+                                            Signaler
+                                        </button>
+                                    </form>
                                 </div>
                                 <div class="card-body text-success">
                                     <h5 class="card-title"></h5>
@@ -127,6 +139,12 @@ if(isset($commentforum))
                                                 <div class="card border-info mb-3" >
                                                     <div class="card-header">
                                                         <?=$answer->date_com?>
+                                                        <form action="?task=admin.alertComment" method="post">
+                                                            <input type="hidden" name="id_commentForum" value="<?=$answer->id_commentForum?>">
+                                                            <button type="submit" class="btn btn-danger" >
+                                                                Signaler
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                     <div class="card-body text-info">
                                                         <h5 class="card-title"></h5>
