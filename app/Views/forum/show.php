@@ -28,12 +28,16 @@ if(isset($commentforum))
         <div class="card bg-primary ">
             <div class="card text-center">
                 <div class="card-header">
-                    <?=$user->nom.'  '?> <?=$user->prenom?>
+                    <?=$forum->date_creation?>
                 </div>
                 <div class="card-body ">
                     <h5 class="card-title"><?=$forum->titre?></h5>
                     <p class="card-text">
-                        <?=$forum->contenu?>
+                        <blockquote class="blockquote">
+                    <p class="mb-0"><?=$forum->contenu?></p>
+                    <footer class="blockquote-footer"><?=$user->nom.'  '.$user->prenom?><cite title="Source Title"> Auteur</cite></footer>
+                    </blockquote>
+
                     </p>
                     <button type="button" class="btn btn-primary"   id="addcommentaire">
                         Ajouter un Commentaire
@@ -150,7 +154,7 @@ if(isset($commentforum))
                 </div>
 
                 <div class="card-footer text-muted">
-                    <?=$forum->date_creation?>
+
                 </div>
             </div>
         </div>

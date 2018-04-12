@@ -24,6 +24,7 @@ class UsersController extends AppController
 
     public function add()
     {
+
         $form = new BootstrapForm();
         if(!empty($_POST)) {
 
@@ -65,6 +66,7 @@ class UsersController extends AppController
                 $form->resetForm('codepostale');
                 $form->resetForm('login');
                 $form->resetForm('password');
+                unset($_SESSION['post']);
                 $_POST = array();
 
                 if (!$result) {
@@ -103,6 +105,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->find($_SESSION['auth']);
         $form = new BootstrapForm($user);
+
         if(!empty($_POST)) {
 
             $this->postTosession($_POST);
@@ -129,6 +132,7 @@ class UsersController extends AppController
                     $form->resetForm('login');
                     $form->resetForm('password');
                     $_POST = array();
+                    unset($_SESSION['post']);
                     $edit = true;
                 }
                 return $this->render('usershome', compact('edit'));

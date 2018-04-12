@@ -42,7 +42,7 @@ if(isset($addforum) ) {
                         <p class="card-text">
                             <?= $forum->contenu ?>
                         </p>
-                        <a href="<?= $forum->getUrl() ?>" class="btn btn-primary">Consulter</a>
+                        <a href="<?= $forum->getUrlAdmin() ?>" class="btn btn-primary">Consulter</a>
                     </div>
                     <div class="card-footer text-muted">
                         <?= $forum->date_creation ?>

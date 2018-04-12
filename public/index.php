@@ -75,7 +75,21 @@ if(isset($task)) {
     elseif ($task === 'forum.show') {
         $controller = new \app\Controller\ForumController();
         $controller->show();
+    }elseif ($task === 'forum.admin.show') {
+        $controller = new \app\Controller\ForumController();
+        $controller->showAdmin();
+    }elseif ($task === 'forum.admin.index') {
+        $controller = new \app\Controller\ForumController();
+        $controller->indexAdmin();
     }
+    elseif ($task === 'admin.deleteForum') {
+            $controller = new \app\Controller\ForumController();
+            $controller->delete();
+        }
+    elseif ($task === 'admin.deleteComment') {
+                $controller = new \app\Controller\ForumController();
+                $controller->deleteComment();
+            }
 
 
 }

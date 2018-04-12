@@ -15,7 +15,7 @@ use core\HTML\BootstrapForm;
 
 class AppController extends Controller{
     protected $template = 'default';
-    private $auth;
+    protected $auth;
     public $form ;
 
     public function __construct()

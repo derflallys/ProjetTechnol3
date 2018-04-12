@@ -20,4 +20,12 @@ class ForumTable extends Table
         return $this->query("SELECT * from $this->table where id_forum = ? ",[$id],true);
 
     }
+
+    public function delete($id)
+    {
+        return $this->query("DELETE FROM {$this->table} WHERE id_forum= ?",[$id],true);
+    }
+
+
+
 }

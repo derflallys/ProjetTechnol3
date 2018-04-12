@@ -15,9 +15,40 @@
         <li class="nav-item">
             <a class="nav-link active" href="?task=home">Home</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="?task=forum">Forum</a>
-        </li>
+        <?php
+        if(isset($_SESSION['auth']))
+        {
+
+            if(strcmp($_SESSION['role'],'admin')==0)
+            {
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="?task=forum.admin.index">Forum</a>
+                </li>
+        <?php
+
+        }
+        else
+        {
+            ?>
+            <li class="nav-item">
+                <a class="nav-link" href="?task=forum">Forum</a>
+            </li>
+            <?php
+        }
+        }
+        else{
+            ?>
+            <li class="nav-item">
+                <a class="nav-link" href="?task=forum">Forum</a>
+            </li>
+            <?php
+        }
+
+
+
+        ?>
+
         <?php
         if(isset($_SESSION['auth']))
         {
