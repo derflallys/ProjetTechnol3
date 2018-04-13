@@ -70,7 +70,8 @@ class ForumController extends AppController
                         $addforum = true;
                     }
                     unset($_SESSION['post']);
-                   return $this->render('forum.index',compact('form','addforum'));
+                    $forums = $this->Forum->all();
+                   return $this->render('forum.index',compact('form','addforum','forums'));
                 }
             }
         }
